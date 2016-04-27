@@ -22,6 +22,7 @@ function buildFramesFromPixels(pixels, ledCount, yOffset, ledHeight) {
   // Make sure we attempt to grab valid values (don't step out of image size bounds)
   maxWidth = Math.min(ledCount, pixels.shape[1]);
   maxHeight = Math.min(ledHeight, pixels.shape[2]);
+  yOffset = Math.min(maxHeight, yOffset);
 
   console.log('Frames: ' + pixels.shape[0] + ' - Dimensions: ' + pixels.shape[1] + 'x' + pixels.shape[2]);
   // For an animated gif in get-pixels it returns the following:

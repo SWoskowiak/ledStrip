@@ -23,7 +23,6 @@ device = awsIot.device(iotSettings);
 device.on('connect', function () {
   console.log('Amazon IoT connect Success');
   // Subscripe to Blinkie related topics
-  device.subscribe('blinkie:fill');
   device.subscribe('blinkie:gif');
   device.subscribe('blinkie:clear');
 
@@ -79,13 +78,7 @@ function animate(frames, frameDelta, loop) {
 
 // Runs when ANY topic message we subscribed to gets published
 device.on('message', function (topic, payload) {
-  var rgb, data,
-  // Default values for blinkie:fill
-  fillDefault = {
-    r: 0,
-    g: 0,
-    b: 0
-  },
+  var data,
   // Default values for blinkie:gif
   gifDefault = {
     url: '',
@@ -95,21 +88,6 @@ device.on('message', function (topic, payload) {
   };
 
   console.log('message:', topic, payload.toString());
-  // display some number or string (only reads first two characters in string)
-  if (topic === 'blinkie:fill') {
-    reset();
-    try {
-      data = JSON.parse(payload);
-    } catch(e) {
-      console.log('payload JSON is malformed:\n ' + payload);
-      return;
-    }
-
-    // Merge data with defaults
-    _.merge(data, fillDefault, data);
-
-    leds.fill(rgb.r, rgb.g, rgb.b);
-  }
   if (topic === 'blinkie:clear') {
     reset();
   }
@@ -130,10 +108,10 @@ device.on('message', function (topic, payload) {
       return;
     }
     // Merge data with defaults
-    _.merge(data, gifDefault, data);
+    data = _.merge(gifDefault, data);
 
     if (data.url === '') {
-      console.log('No url was specified');
+      console.log('No url was specified!');
       console.log('Awaiting messages... ');
       return;
     }
