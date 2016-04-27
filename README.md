@@ -19,13 +19,8 @@ Make sure you run `npm install` first and then run `node index` to start the app
 
 Topic | Expected Payload (examples)
 ------------ | ------------- |
-blinkie:fill | `{ "r": 255, "g": 200, "b": 200 }` |
 blinkie:gif | `{ "url": "http://i.giphy.com/ngDsSVRk2Tg0o.gif", "frameDelta": 30, "loop": true, "yOffset": 127 }` |
 blinkie:clear | `""` |
-
-### fill
-
-Fill will fill all leds with a solid color provided represented by the RGB values passed in
 
 ### gif
 
@@ -34,6 +29,15 @@ Loads a gif from a given URL and parse out a chunk of its pixel data at a given 
 Basically if your gif is 160x160 with 10 frames and you feed a yOffset of 80  you will effectively cut out a 160x1 slice out starting 80 pixels down.
 
 NOTE: The width is fixed to 160px for now (the number of leds for this project's target strip) but if the gif's width is smaller it will only read up to the gif's max width.
+
+Only `url` is required, the rest will be filled with the defaults listed below:
+`
+  {
+    "yOffset": 0,
+    "loop": true,
+    "frameDelta": 50
+  };
+`
 
 ### clear
 
