@@ -8,5 +8,5 @@ It operates by subcribing to amazon IoT messages containing blinkie:{action} top
 Topic | Expected Payload
 ------------ | ------------- |
 blinkie:fill | `{ "r": 255, "g": 200, "b": 200 }` |
-blinkie:gif | { "imgUrl": "http://i.giphy.com/ngDsSVRk2Tg0o.gif", "frameDelta": 30, "loop": true, "yOffset": 127 } |
+blinkie:gif | <code>{ "imgUrl": "http://i.giphy.com/ngDsSVRk2Tg0o.gif", "frameDelta": 30, "loop": true, "yOffset": 127 }</code> |
 blinkie:clear | |
