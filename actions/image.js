@@ -47,33 +47,33 @@ function buildFramesFromPixels(pixels, ledCount, yOffset, ledHeight) {
 }
 
 /**
- * Takes an imgUrl for a gif and converts it to frame data
- * @param  {String} imgUrl    url to a gif image
+ * Takes an url for a gif and converts it to frame data
+ * @param  {String} url    url to a gif image
  * @param  {Number} ledCount  the number of leds this strip uses
  * @param  {Number} yOffset   the height we want to start slicing our frames at (defaults to 0)
  * @param  {Number} ledHeight the height of our ledStrip (defaults to 1)
  * @return {Promise}           returns promise that resolves once remote img is loaded and frame data is built
  */
-module.exports = function (imgUrl, ledCount, yOffset, ledHeight) {
+module.exports = function (url, ledCount, yOffset, ledHeight) {
 
   ledHeight = ledHeight || 1;
   yOffset = yOffset || 0;
 
   // Returns a promise
   return new Promise(function (resolve, reject) {
-    if ((imgUrl === prevUrl) && prevPixels) {
-      console.log('Using existing pixel data for image: ' + imgUrl);
+    if ((url === prevUrl) && prevPixels) {
+      console.log('Using existing pixel data for image: ' + url);
       resolve(buildFramesFromPixels(prevPixels, ledCount, yOffset, ledHeight));
     } else {
-      console.log('\nDownloading image: ' + imgUrl + ' ....\n');
+      console.log('\nDownloading image: ' + url + ' ....\n');
       // Call get-pixel
-      getPixel(imgUrl, function (err, pixels) {
+      getPixel(url, function (err, pixels) {
         if (err) {
-          console.log('Image failed to load from: ' + imgUrl);
+          console.log('Image failed to load from: ' + url);
           resolve(false);
           return false;
         }
-        prevUrl = imgUrl;
+        prevUrl = url;
         prevPixels = pixels;
         resolve(buildFramesFromPixels(pixels, ledCount, yOffset, ledHeight));
       });

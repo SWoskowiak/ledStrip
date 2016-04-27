@@ -15,7 +15,7 @@ var awsIot = require('aws-iot-device-sdk'),
   },
   frameBuilder = require('./actions/image'),
   ledCount = 160,
-  curInterval = '';
+  animationInterval = '';
 
 console.log('Connecting to Amazon IoT...');
 device = awsIot.device(iotSettings);
@@ -37,7 +37,7 @@ device.on('connect', function () {
  * Simple reset function to clear existing intervals and turn off leds
  */
 function reset() {
-  clearInterval(curInterval);
+  clearInterval(animationInterval);
   leds.clear();
 }
 
@@ -54,7 +54,7 @@ function animate(frames, frameDelta, loop) {
     i;
 
   // Set current interval loop up with animation
-  curInterval = setInterval(function () {
+  animationInterval = setInterval(function () {
     if (!frames[frameCount]) {
       if (loop) {
         frameCount = 0;
@@ -98,12 +98,13 @@ device.on('message', function (topic, payload) {
   }
   // Gif payload looks like
   // {
-  //   "imgUrl" : "http://some-gif-url-here",
+  //   "url" : "http://some-gif-url-here",
   //   "frameDelta: 20, (the milisecond delay you want between each frame)
   //   "loop": true, (continous play)
   //   "yOffset": 50 (we only read out a 1px high "slice" thats led)
   // }
   if (topic === 'blinkie:gif') {
+    reset();
     // Try to parse the JSON payload
     try {
       data = JSON.parse(payload);
@@ -112,9 +113,8 @@ device.on('message', function (topic, payload) {
       return;
     }
 
-
     // pass off message data to frame builder
-    frameBuilder(data.imgUrl, ledCount, data.yOffset).then(function (frames) {
+    frameBuilder(data.url, ledCount, data.yOffset).then(function (frames) {
       if (!frames) {
         console.log('Awaiting messages... ');
       } else {
