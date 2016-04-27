@@ -6,11 +6,12 @@ It operates by subcribing to amazon IoT messages containing blinkie:{action} top
 
 ## Jenky Install Process
 
-* Make sure device has its "Thing" representation on the amazon IoT page (save the permission files it generates)
+* Make sure device has its "Thing" representation on the amazon IoT page
+* Be sure to save the permission files it generates and copy the iot settings object it gives you
 * Git clone this repo onto device (the raspberry pi)
 * Copy the generated permission files to the root of the project folder (when you made the amazon "Thing") on the device
 NOTE: you will also need to create the root-CA file which you can get the contents of [HERE](https://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem)
-* Inside of index.js be sure to update the `iotSettings` object to match the files you copied over
+* Inside of index.js be sure to update the `iotSettings` object to match the one you copied earlier
 
 Make sure you run `npm install` first and then run `node index` to start the application
 
