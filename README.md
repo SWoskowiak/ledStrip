@@ -5,8 +5,9 @@ It operates by subcribing to amazon IoT messages containing blinkie:{action} top
 
 ### Topics:
 
-Topic | Expected Payload
+Topic | Expected Payload (examples)
 ------------ | ------------- |
 blinkie:fill | `{ "r": 255, "g": 200, "b": 200 }` |
-blinkie:gif | `{ "imgUrl": "http://i.giphy.com/ngDsSVRk2Tg0o.gif", "frameDelta": 30, "loop": true, "yOffset": 127 }` |
-blinkie:clear | |
+blinkie:gif | `{ <br>"imgUrl": "http://i.giphy.com/ngDsSVRk2Tg0o.gif", "frameDelta": 30, "loop": true, "yOffset": 127 }` |
+blinkie:clear | `""`|
+
