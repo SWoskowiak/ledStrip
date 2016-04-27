@@ -79,7 +79,20 @@ function animate(frames, frameDelta, loop) {
 
 // Runs when ANY topic message we subscribed to gets published
 device.on('message', function (topic, payload) {
-  var rgb, data;
+  var rgb, data,
+  // Default values for blinkie:fill
+  fillDefault = {
+    r: 0,
+    g: 0,
+    b: 0
+  },
+  // Default values for blinkie:gif
+  gifDefault = {
+    url: '',
+    yOffset: 0,
+    loop: true,
+    frameDelta: 50
+  };
 
   console.log('message:', topic, payload.toString());
   // display some number or string (only reads first two characters in string)
@@ -91,6 +104,10 @@ device.on('message', function (topic, payload) {
       console.log('payload JSON is malformed:\n ' + payload);
       return;
     }
+
+    // Merge data with defaults
+    _.merge(data, fillDefault, data);
+
     leds.fill(rgb.r, rgb.g, rgb.b);
   }
   if (topic === 'blinkie:clear') {
@@ -110,6 +127,14 @@ device.on('message', function (topic, payload) {
       data = JSON.parse(payload);
     } catch(e) {
       console.log('payload JSON is malformed:\n ' + payload);
+      return;
+    }
+    // Merge data with defaults
+    _.merge(data, gifDefault, data);
+
+    if (data.url === '') {
+      console.log('No url was specified');
+      console.log('Awaiting messages... ');
       return;
     }
 
