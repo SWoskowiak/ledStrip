@@ -31,13 +31,14 @@ Basically if your gif is 160x160 with 10 frames and you feed a yOffset of 80  yo
 NOTE: The width is fixed to 160px for now (the number of leds for this project's target strip) but if the gif's width is smaller it will only read up to the gif's max width.
 
 Only `url` is required, the rest will be filled with the defaults listed below:
-`
+
+```JSON
   {
     "yOffset": 0,
     "loop": true,
     "frameDelta": 50
   };
-`
+```
 
 ### clear
 
