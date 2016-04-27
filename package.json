@@ -1,0 +1,35 @@
+{
+  "name": "led-gif-animator",
+  "version": "1.0.0",
+  "description": "Listens to amazon IoT messages prefixed with blinkie:{action} to animate a ws2801 led strip containing 160 leds",
+  "main": "index.js",
+  "dependencies": {
+    "aws-iot-device-sdk": "^1.0.11",
+    "get-pixels": "^3.3.0",
+    "rpi-ws2801": "^0.0.4",
+    "spi": "^0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SWoskowiak/ledStrip.git"
+  },
+  "keywords": [
+    "ws2801",
+    "led",
+    "leds",
+    "pixels",
+    "gif",
+    "node",
+    "pi"
+  ],
+  "author": "Stefan Woskowiak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SWoskowiak/ledStrip/issues"
+  },
+  "homepage": "https://github.com/SWoskowiak/ledStrip#readme"
+}
