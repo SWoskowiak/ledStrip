@@ -3,6 +3,7 @@
 var awsIot = require('aws-iot-device-sdk'),
   leds = require('rpi-ws2801'),
   _ = require('lodash'),
+  ip = require('ip'),
   device,
   iotSettings = {
     host: 'AB9CT7LOKIG9O.iot.us-east-1.amazonaws.com',
@@ -25,6 +26,8 @@ device.on('connect', function () {
   // Subscripe to Blinkie related topics
   device.subscribe('blinkie:gif');
   device.subscribe('blinkie:clear');
+  // Subscribe to General device topics
+  device.subscribe('report');
 
   console.log('Awaiting messages...');
   // Connect LEDS
@@ -125,5 +128,12 @@ device.on('message', function (topic, payload) {
         animate(frames, data.frameDelta, data.loop);
       }
     });
+  }
+
+  if (topic === 'report') {
+    device.publish('status', JSON.stringify({
+      id: iotSettings.clientId,
+      ip: ip.address()
+    }));
   }
 });
