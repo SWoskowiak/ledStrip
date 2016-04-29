@@ -15,7 +15,6 @@ var awsIot = require('aws-iot-device-sdk'),
     privateKey: '150480e48f-private.pem.key'
   },
   frameBuilder = require('./actions/image'),
-  ledCount = 160,
   animationInterval = '';
 
 console.log('Connecting to Amazon IoT...');
@@ -31,8 +30,8 @@ device.on('connect', function () {
 
   console.log('Awaiting messages...');
   // Connect LEDS
-  leds.connect(ledCount);
-  leds.clear();
+  //leds.connect(ledCount);
+  //leds.clear();
 });
 
 /**
@@ -87,7 +86,8 @@ device.on('message', function (topic, payload) {
     url: '',
     yOffset: 0,
     loop: true,
-    frameDelta: 50
+    frameDelta: 50,
+    ledCount: 160 // 160 just happens to be the length of our ledStrip
   };
 
   console.log('message:', topic, payload.toString());
@@ -120,7 +120,10 @@ device.on('message', function (topic, payload) {
     }
 
     // pass off message data to frame builder
-    frameBuilder(data.url, ledCount, data.yOffset).then(function (frames) {
+    frameBuilder(data.url, data.ledCount, data.yOffset).then(function (frames) {
+      // Connect LEDS
+      leds.connect(data.ledCount);
+
       if (!frames) {
         console.log('Awaiting messages... ');
       } else {
@@ -129,7 +132,7 @@ device.on('message', function (topic, payload) {
       }
     });
   }
-
+  // When asked to report, pass back our ip and client ID
   if (topic === 'report') {
     device.publish('status', JSON.stringify({
       id: iotSettings.clientId,
