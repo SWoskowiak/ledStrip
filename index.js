@@ -99,7 +99,8 @@ device.on('message', function (topic, payload) {
   //   "url" : "http://some-gif-url-here",
   //   "frameDelta: 20, (the milisecond delay you want between each frame)
   //   "loop": true, (continous play)
-  //   "yOffset": 50 (we only read out a 1px high "slice" thats led)
+  //   "yOffset": 50 (we only read out a 1px high "slice" so specifiy what height you want that to happen)
+  //   "ledCount": 160  (the length of the slice we want to count out)
   // }
   if (topic === 'blinkie:gif') {
     reset();
