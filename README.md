@@ -22,6 +22,7 @@ Topic | Expected Payload (examples)
 ------------ | ------------- |
 blinkie:gif | `{ "url": "http://i.giphy.com/ngDsSVRk2Tg0o.gif", "frameDelta": 30, "loop": true, "yOffset": 10, "ledCount": 160 }` |
 blinkie:clear | `""` |
+report | '""' |
 
 ### gif
 
@@ -43,4 +44,15 @@ Only `url` is required, the rest will be filled with the defaults listed below:
 
 ### clear
 
-This function requires no payload as it simply just clears the animation interval and turns all leds off
+This message requires no payload as it simply just clears the animation interval and turns all leds off
+
+### report
+
+This message requires no payload and if you subscribed to the `status` topic in the AWS IoT mqqt client the device will publish it's IP address to it.
+Useful for when you need to ssh into the device to make changes.
+
+## Note on running processess
+
+In order to keep the node process running even after restarts and potential crashes we utilize PM2.
+
+This documentation covers the installation process: http://www.arroyocode.com/raspberry-pi-nodejs-web-server-with-pm2/
